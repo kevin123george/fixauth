@@ -2,8 +2,10 @@ package com.example.authtry.controller;
 
 
 import com.example.authtry.exception.ResourceNotFoundException;
+import com.example.authtry.model.ApplicationUser;
 import com.example.authtry.model.Question;
 import com.example.authtry.repository.QuestionRepository;
+import com.example.authtry.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,10 @@ public class QuestionController {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+
+    @Autowired
+    private UserRepository userRepository;
 
     private final AuthenticationManager authenticationManager;
 
@@ -65,6 +71,20 @@ public class QuestionController {
     public Question createQuestion(@Valid @RequestBody Question question) {
         return questionRepository.save(question);
     }
+
+    @PostMapping("/register")
+    public void registerUser(@RequestBody ApplicationUser user){
+        ApplicationUser checkUser = userRepository.findByUsername(user.getUsername());
+        if(checkUser == null){
+            userRepository.save(user);
+
+        }
+        else{
+            System.out.println("sdsds");
+        }
+    }
+
+
 
     @PutMapping("/questions/{questionId}")
     public Question updateQuestion(@PathVariable Long questionId,

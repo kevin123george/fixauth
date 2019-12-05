@@ -2,14 +2,19 @@ package com.example.authtry.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+
+
 
 @Entity
 @Table(name="UserModel")
 public class ApplicationUser {
 
     @Id
+
     private String username;
     private String password;
 
@@ -28,5 +33,6 @@ public class ApplicationUser {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
 }
